@@ -10,6 +10,7 @@ public class GTClient {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		try {
+			// tao ra socetket noi giao UDP can tao cong khc
 			DatagramSocket skClient = new DatagramSocket();
 			System.out.println("Sender...");
 			//dong goi packet
