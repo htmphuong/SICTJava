@@ -1,0 +1,137 @@
+
+import java.text.SimpleDateFormat;
+import java.util.Enumeration;
+import java.util.Scanner;
+import java.util.Vector;
+public class Emp
+{
+	Vector list = new Vector();
+	public Emp()
+	{
+		while (true)
+		{
+			System.out.println(" *-Moi ban chon chuc nang-* ");
+			System.out.println(" 1.Nhap thong tin nhan vien ");
+			System.out.println(" 2.In thong tin nhan vien ");
+			System.out.println("-------------");
+			int num;
+			Scanner keyboard = new Scanner(System.in);
+			num = keyboard.nextInt();
+			switch (num)
+			{
+				case 1:
+					this.NhapTT();
+					break;
+				case 2:
+					this.InTT();
+					break;
+			}
+		}
+	}
+	class Nhanvien
+	{
+		public int CMND, luongcb;
+		public double heso;
+		public String tenNV, date, chucvu, maNV, diachi;
+		public int getCMND()
+		{
+			return CMND;
+		}
+		public double getHeso()
+		{
+			return heso;
+		}
+		public int getLuongcb()
+		{
+			return luongcb;
+		}
+		public String getTenNV()
+		{
+			return tenNV;
+		}
+		public String getDate()
+		{
+			return date;
+		}
+		public String getChucvu()
+		{
+			return chucvu;
+		}
+		public String getMaNV()
+		{
+			return maNV;
+		}
+		public String getDiachi()
+		{
+			return diachi;
+		}
+		public Nhanvien()
+		{
+			CMND = 0;
+			heso = 0;
+			luongcb = 0;
+			tenNV = new String("");
+			date = new String("21/10/2018");
+			chucvu = new String("");
+			maNV = new String("");
+			diachi = new String("");
+		}
+		public Nhanvien(int ID, double hs, int lcb, String name, String dat, String cv, String empID, String add)
+		{
+			CMND = ID;
+			heso = hs;
+			luongcb = lcb;
+			tenNV = name;
+			date = dat;
+			chucvu = cv;
+			maNV = empID;
+			diachi = add;
+		}
+	}
+	public void NhapTT()
+	{
+		int num;
+		Scanner keyboard = new Scanner(System.in);
+		System.out.print(" Nhap so luong nhan vien: ");
+		num = keyboard.nextInt();
+		for (int i=1;i<=num;i++)
+		{
+			System.out.println(" Nhap thong tin cho nhan vien thu " +i+ ".");
+			System.out.println(" So CMND: ");
+			int CMND = keyboard.nextInt();
+			System.out.println(" He so luong: ");
+			double heso = keyboard.nextDouble();
+			System.out.println(" Luong co ban: ");
+			int luongcb = keyboard.nextInt();
+			System.out.println(" Ten nhan vien: ");
+			String tenNV = keyboard.nextLine();
+			keyboard.nextLine();
+			System.out.println(" Ngay sinh: ");
+			String date = keyboard.nextLine();
+			System.out.println(" Chuc vu: ");
+			String chucvu = keyboard.nextLine();
+			System.out.println(" Ma nhan vien: ");
+			String maNV = keyboard.nextLine();
+			System.out.println(" Dia chi: ");
+			String diachi = keyboard.nextLine();
+			Nhanvien nv = new Nhanvien(CMND, heso, luongcb, tenNV, date, chucvu, maNV, diachi);
+			list.add(nv);
+		}
+	}
+	public void InTT()
+	{
+		Enumeration Emp = list.elements();
+		while (Emp.hasMoreElements())
+		{
+			for (int i=1;i<=list.size();i++)
+			{
+				Nhanvien nv = (Nhanvien)Emp.nextElement();
+				System.out.println(" "+i+". So CMND: "+nv.getCMND()+"\n He so luong: "+nv.getHeso()+"\n Luong co ban: "+nv.getLuongcb()+"\n Ten nhan vien: "+nv.getTenNV()+"\n Ngay sinh: "+nv.getDate()+"\n Chuc vu: "+nv.getChucvu()+"\n Ma nhan vien: "+nv.getMaNV()+"\n Dia chi: "+nv.getDiachi());
+			}
+		}
+	}
+	public static void main (String [] args)
+	{
+		new Emp();
+	}
+}
