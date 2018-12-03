@@ -1,0 +1,54 @@
+package gui;
+
+import java.awt.Container;
+import java.awt.FlowLayout;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+
+public class qlnv extends JFrame {
+	JLabel lblMaNV;
+	JLabel lblTenNV;
+	JLabel lblNgayBD;
+	JLabel lblTrinhDo;
+	JLabel lblCoQuan;
+	JTextField tfMaNV;
+	JTextField tfTenNV;
+	JTextField tfNgayBD;
+	JTextField tfCQ;
+	JButton btnThem;
+	JButton btnUpdate;
+	JButton btnXoa;
+	public qlnv() {
+		lblMaNV = new JLabel("Ma NV");
+		tfMaNV = new JTextField(10);
+		lblTenNV = new JLabel("TenNV");
+		tfTenNV = new JTextField(10);
+		lblNgayBD = new JLabel("Ngay bat dau");
+		tfNgayBD = new JTextField(10);
+		btnThem = new JButton("Them moi");
+		btnUpdate = new JButton("Cap nhat");
+		btnXoa = new JButton("Xoa");
+		Container cont = this.getContentPane();
+		setSize(400,300);
+		setLayout(new FlowLayout());
+		cont.add(lblMaNV);
+		cont.add(tfMaNV);
+		cont.add(lblTenNV);
+		cont.add(tfTenNV);
+		cont.add(lblNgayBD);
+		cont.add(tfNgayBD);
+		cont.add(btnThem);
+		cont.add(btnUpdate);
+		cont.add(btnXoa);
+		setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		new qlnv();
+	}
+
+}
