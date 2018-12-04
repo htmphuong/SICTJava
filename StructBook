@@ -1,0 +1,67 @@
+#include<conio.h>
+#include<stdio.h>
+#include<string.h>
+struct book{
+	char name[50];
+	int edn;
+	float price;
+};
+void NhapSach(struct book b[],int n){
+	for(int i=0;i<n;i++){
+		fflush(stdin);
+		printf("Nhap name b[%d]=",i);
+		gets(b[i].name);		
+		printf("Nhap nam xuat ban b[%d]=",i);
+		scanf("%d",&b[i].edn);
+		printf("Nhap gia b[%d]=",i);
+		scanf("%f",&b[i].price);
+	}
+}
+void InSach(struct book b[],int n){
+	for(int i=0;i<n;i++){
+		printf("\n Ten sach b[%d] la %s",i,b[i].name);
+		printf("\n Nam xuat ban b[%d] la %d",i,b[i].edn);
+		printf("\n Gia b[%d] la %f",i,b[i].price);
+	}	
+}
+//tim ra sach co ten sach chua chu x bat ky
+void searchName(struct book b[],int n,char x[50]){
+	for(int i=0;i<n;i++){
+		if (strstr(b[i].name,x)!=NULL){
+			InSach(b,n);
+		}
+	}	
+}
+
+//tim ra sach co gia nho nhat
+float minPrice(struct book b[],int n){
+	float min =b[0].price;
+	for(int i=0;i<n;i++){
+		if(min>b[i].price) min=b[i].price;
+	}
+	return min;
+}
+void InSachNho(struct book b[],int n){
+	for(int i=0;i<n;i++){
+		if(b[i].price==minPrice(b,n)) {
+			printf("\n sach nho nhat Name is %s ",b[i].name);
+			printf("\n sach nho nhat Nam xuat ban %d ",b[i].edn);
+		}
+	}
+}
+int main(){
+	struct book b[100];
+	int n;
+	char tentim[50];
+	printf("Nhap so sach n=");
+	scanf("%d",&n);
+	fflush(stdin);			
+	NhapSach(b,n);
+	//InSach(b,n);
+	fflush(stdin);
+	printf("Nhap ten sach muon tim");
+	gets(tentim);
+	fflush(stdin);
+	searchName(b,n,tentim);
+	InSachNho(b,n);
+}
