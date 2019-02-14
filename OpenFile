@@ -1,0 +1,17 @@
+try {
+					JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+					int returnValue = jfc.showOpenDialog(null);
+					if (returnValue == JFileChooser.APPROVE_OPTION) {
+						File selectedFile = jfc.getSelectedFile();
+						System.out.println(selectedFile.getAbsolutePath());
+						FileInputStream fis = new FileInputStream(selectedFile);
+						int data = fis.read();
+						while(fis.read()!=-1) {
+							System.out.print((char)data);						 					
+							data=fis.read();						
+						}
+					}					
+				} catch (Exception e) {
+					// TODO: handle exception
+					System.out.println(e.getMessage());
+				}
