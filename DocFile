@@ -1,0 +1,14 @@
+try {
+					JFileChooser fc = new JFileChooser();						
+					//hien thi hop thoai
+					int retrieve = fc.showOpenDialog(null);
+					if(retrieve == JFileChooser.APPROVE_OPTION) {
+						//lay duong dan den file lua chon
+						String path = fc.getSelectedFile().getAbsolutePath();
+						
+						
+					}
+				} catch (Exception e) {
+					// TODO: handle exception
+					System.out.println(e.getMessage());
+				}
