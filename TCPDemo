@@ -1,0 +1,53 @@
+package demo;
+
+import java.io.DataInputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class ServerSoN {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+			//thiet lap server voi port
+			ServerSocket skServer = new ServerSocket(6502);
+			Socket s = skServer.accept();
+			System.out.println("Connected successful");
+			
+			//lay du lieu 
+			DataInputStream inputN= new DataInputStream(s.getInputStream());
+			String chuoi = inputN.readLine();
+			System.out.println("N la "+chuoi);
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+	}
+
+}
+
+
+
+package demo;
+
+import java.io.DataOutputStream;
+import java.net.Socket;
+
+public class ClientSoN {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+			Socket skClient = new Socket("localhost", 6502);
+			System.out.println("OK");
+			//day du lieu di
+			DataOutputStream outN = new DataOutputStream(skClient.getOutputStream());
+			outN.writeBytes("5");
+			outN.flush();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+	}
+
+}
