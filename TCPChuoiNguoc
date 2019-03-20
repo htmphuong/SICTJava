@@ -1,0 +1,73 @@
+package demo;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+public class NguocChuoiServer {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+			ServerSocket serverSk = new ServerSocket(4001);
+			Socket skServer = serverSk.accept();
+			System.out.println("Client connected");
+			
+			//nhan du lieu tu client
+			DataInputStream inputServer = new DataInputStream(skServer.getInputStream());
+			String chuoi= inputServer.readLine();
+			System.out.println("Chuoi nhan dc la "+chuoi);
+			StringBuffer chuoiNguoc = new StringBuffer(chuoi);
+			String chuoiGui = chuoiNguoc.reverse().toString();
+			System.out.println("Chuoi gui la "+chuoiGui);
+			//gui chuoi nguoc di ve client
+			DataOutputStream outServer = new DataOutputStream(skServer.getOutputStream());
+			outServer.writeBytes(chuoiGui);
+			
+			 skServer.close();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+	}
+
+}
+
+package demo;
+
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.net.Socket;
+import java.util.Scanner;
+
+public class NguocChuoiClient {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		try {
+			Socket skClient = new Socket("localhost", 4001);
+			System.out.println("Ok");
+			System.out.println("Moi ban nhap chuoi");
+			Scanner key = new Scanner(System.in);
+			String chuoi =key.nextLine();
+			
+			//gui du lieu qua server
+			DataOutputStream outClient = new DataOutputStream(skClient.getOutputStream());
+			outClient.writeBytes(chuoi+"\n");
+			
+			//nhan du lieu
+			DataInputStream inputClient = new DataInputStream(skClient.getInputStream());
+			String chuoiNguoc = inputClient.readLine();
+			System.out.println("Chuoi nhan duoc la "+chuoiNguoc);
+			skClient.close();
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.getMessage());
+		}
+	}
+
+}
+
