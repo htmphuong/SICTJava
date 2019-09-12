@@ -1,0 +1,10 @@
+public class TongMain {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		TinhTongJ obj = new TinhTongJ();
+		System.out.println("Giai thua la"+obj.GiaiThua(5));
+		System.out.println("tong giai thua "+obj.TongGT(5));
+	}
+
+}
