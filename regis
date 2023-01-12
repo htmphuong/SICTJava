@@ -1,0 +1,155 @@
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
+public class Register {
+	JFrame f = new JFrame("Register");
+	JLabel lblEmail = new JLabel("Email");
+	JTextField tfEmail = new JTextField(10);
+	JLabel lblPassword = new JLabel("Password");
+	JPasswordField tfPass= new JPasswordField(10);
+	JButton bntRegis = new JButton("Register");
+	JButton btnUpdate = new JButton("Update");
+	JButton btnResult = new JButton("Display");
+	JButton btnCancel = new JButton("Cancel");
+	Object[] colHeader = {"Email","Password"};
+	DefaultTableModel model = new DefaultTableModel(colHeader, 0);
+	JTable tbAccount;
+	public Register() {
+		f.add(lblEmail);
+		f.add(tfEmail);
+		f.add(lblPassword);
+		f.add(tfPass);
+		f.add(bntRegis);		
+		bntRegis.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+					Connection conn = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-NU4VCB7\\SQLEXPRESS ;database= BankManagement;encrypt=false;trustServerCertificate=true;User=sa;password =123456");
+					//Statement stmt = conn.createStatement();
+					PreparedStatement ps = conn.prepareStatement("Insert into Account(Email,Password) values(?,?)");
+					ps.setString(1, tfEmail.getText());
+					ps.setString(2, tfPass.getText());
+					ps.execute();
+					//int record = stmt.executeUpdate("insert into Account values('"+tfEmail.getText()+"','"+tfPass.getText()+"')");
+					JOptionPane.showMessageDialog(null, "OK ");
+					conn.close();
+				} catch (Exception e2) {
+					// TODO: handle exception
+					e2.printStackTrace();
+					
+				}
+			}
+		});
+		f.add(btnUpdate);
+		btnUpdate.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+					Connection conn = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-NU4VCB7\\SQLEXPRESS ;database= BankManagement;encrypt=false;trustServerCertificate=true;User=sa;password =123456");
+					Statement stmt = conn.createStatement();
+					//int record = stmt.executeUpdate("update Account set Password ='"+tfPass.getText()+"' where Email='"+tfEmail.getText()+"' ");
+					//int record = stmt.executeUpdate("delete from Account where Email='"+tfEmail.getText()+"' ");
+					PreparedStatement ps = conn.prepareStatement("update Account set Password =? where Email=?");
+					ps.setString(1, tfPass.getText());
+					ps.setString(2, tfEmail.getText());					
+					ps.execute();
+					JOptionPane.showMessageDialog(null, "OK");
+					conn.close();
+				} catch (Exception e2) {
+					e2.printStackTrace();
+					// TODO: handle exception
+				}
+			}
+		});
+		f.add(btnResult);
+		btnResult.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				try {
+					Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+					Connection conn = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-NU4VCB7\\SQLEXPRESS ;database= BankManagement;encrypt=false;trustServerCertificate=true;User=sa;password =123456");
+					Statement stmt = conn.createStatement();
+					ResultSet rs = stmt.executeQuery("select * from Account order by Email asc");
+					
+					//String title[] = {"Email","password"};
+					//DefaultTableModel model = new DefaultTableModel(title,0);
+					
+					while(rs.next()) {
+						//System.out.println(rs.getString("Email") + rs.getString("Password"));
+						Object[] data = {rs.getString("Email"),rs.getString("Password")};
+						//tbAccount = new JTable(model);
+						model.addRow(data);
+					}
+					tbAccount.setModel(model);
+			
+			} catch (Exception e2) {
+				// TODO: handle exception
+				e2.printStackTrace();
+			}}
+		});
+		f.add(btnCancel);
+		//Display();
+		//JScrollPane sp = new JScrollPane(tbAccount);
+		//JScrollPane sp = new JScrollPane(tbAccount);
+		tbAccount = new JTable();
+		f.add(tbAccount);
+		
+		f.setSize(500,200);
+		f.setLayout(new GridLayout(5,2));
+		f.setLocation(200, 300);
+		//f.pack();
+		f.setVisible(true);
+	}
+	public void Display() {
+		try {
+			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+			Connection conn = DriverManager.getConnection("jdbc:sqlserver://DESKTOP-NU4VCB7\\SQLEXPRESS ;database= BankManagement;encrypt=false;trustServerCertificate=true;User=sa;password =123456");
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from Account");
+			
+			String title[] = {"Email","password"};
+			DefaultTableModel model = new DefaultTableModel(title,0);
+			
+			while(rs.next()) {
+				//System.out.println(rs.getString("Email") + rs.getString("Password"));
+				Object[] data = {rs.getString("Email"),rs.getString("Password")};
+				tbAccount = new JTable(model);
+				model.addRow(data);
+			}
+			
+							
+		} catch (Exception e2) {
+			// TODO: handle exception
+			e2.printStackTrace();
+		}
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		new Register();
+	}
+
+}
